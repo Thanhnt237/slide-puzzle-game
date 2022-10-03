@@ -1,0 +1,18 @@
+const CANVAS_WIDTH = 800;
+const CANVAS_HEIGHT = 800;
+
+const GAME_WIDTH = 300;
+const GAME_HEIGHT = 600;
+
+const GAME_WIDTH_GRID = 3;
+const GAME_HEIGHT_GRID = 6;
+
+const GUTTER = 1;
+
+const FPS = 60;
+const GAME_SPEED = 100;
+
+const PUZZLE_WIDTH = GAME_WIDTH / GAME_WIDTH_GRID
+const PUZZLE_HEIGHT = GAME_HEIGHT / GAME_HEIGHT_GRID
+
+const IMAGE_SOURCE = './assets/image.png'
