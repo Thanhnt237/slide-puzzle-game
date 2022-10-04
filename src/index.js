@@ -18,6 +18,7 @@ function Main(){
     this.createGamePlay = () => {
         const game = new GamePlay()
         game.init()
+        this.game = game
         this.gameMatrix = game.getGameMatrix()
     }
 
@@ -37,11 +38,9 @@ function Main(){
     }
 
     this.createEventHandler = () => {
-        if(this.game && this.board){
-            let event = new EventHandler(this.game, this.board)
-            event.init();
-            this.eventHandler = event
-        }
+        let event = new EventHandler(this.game, this.board)
+        event.init();
+        this.eventHandler = event
     }
 
     this.startGame = () => {
