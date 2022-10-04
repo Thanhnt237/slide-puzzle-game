@@ -7,7 +7,7 @@ function GamePlay(gameMatrix, gameBoard, eventHandler) {
     this.gamePause = false;
 
     this.init = () => {
-        this.gameMatrix = this.createGameMatrix()
+        if(!this.gameMatrix) this.gameMatrix = this.createGameMatrix()
         // this.gameStore = new Store()
     }
 
@@ -24,9 +24,7 @@ function GamePlay(gameMatrix, gameBoard, eventHandler) {
         this.eventHandler.emit(GAME_START)
     }
 
-    this.letGamePause = () => this.gamePause = true
-
-    this.letGameResumse = () => this.gamePause = false
+    this.handleGamePause = () => this.gamePause = !this.gamePause
 
     this.getGameMatrix = () => this.gameMatrix
 

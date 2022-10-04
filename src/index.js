@@ -37,9 +37,11 @@ function Main(){
     }
 
     this.createEventHandler = () => {
-        let event = new EventHandler()
-        event.init();
-        this.eventHandler = event
+        if(this.game && this.board){
+            let event = new EventHandler(this.game, this.board)
+            event.init();
+            this.eventHandler = event
+        }
     }
 
     this.startGame = () => {
