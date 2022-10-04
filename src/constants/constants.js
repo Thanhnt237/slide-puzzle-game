@@ -23,3 +23,4 @@ const WIN = 'WIN'
 
 const RESTART = 'CHOI_LAI'
 const RESET = 'RESET'
+const PAUSE = 'PAUSE'
