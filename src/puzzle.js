@@ -6,6 +6,10 @@ function Puzzle(context) {
         this.initImage()
     }
 
+    this.loop = () => {
+
+    }
+
     this.getImageContext = () => this.imageContext
 
     this.drawPuzzle = (xAxis = 0, yAxis = 0, puzzleMatrix, imageContext) => {

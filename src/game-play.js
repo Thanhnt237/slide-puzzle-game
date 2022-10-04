@@ -24,6 +24,11 @@ function GamePlay(gameMatrix, gameBoard, eventHandler) {
         this.eventHandler.emit(GAME_START)
     }
 
+    this.cheatGame = () => {
+        this.currentGameMatrix = JSON.parse(JSON.stringify(this.gameMatrix))
+        this.board.updateGameBoard()
+    }
+
     this.handleGamePause = () => this.gamePause = !this.gamePause
 
     this.getGameMatrix = () => this.gameMatrix
@@ -54,34 +59,41 @@ function GamePlay(gameMatrix, gameBoard, eventHandler) {
     }
 
     this.sufferGameMatrix = (gameMatrix) => {
-        let myGameMatrix = [
-            ["o","-","-"],
-            [[4, 1,0], [5,1,1], [8,2,1]],
-            [[12,3,2],[6,1,2] , [16,5,0]],
-            [[10,3,0], [13,4,0], [7,2,0]],
-            [[11,3,1], [14,4,1], [18,5,2]],
-            [[15,4,2], [17,5,1], [9,2,2]]
-        ]
-        // let myGameMatrix = JSON.parse(JSON.stringify(gameMatrix));
-        //
-        // let randomArray = Array.from(Array((GAME_WIDTH_GRID * (GAME_HEIGHT_GRID - 1) + GAME_WIDTH_GRID + 1)).keys())
-        // randomArray = randomArray.slice(GAME_WIDTH_GRID + 1)
-        // // console.log(randomArray)
-        //
-        // for (let i = 1; i < myGameMatrix.length; i++) {
-        //     for (let j = 0; j < myGameMatrix[i].length; j++) {
-        //         let somethingRandom = Math.floor(Math.random() * (randomArray[randomArray.length-1] - randomArray[0] + 1) + randomArray[0])
-        //         let yRandom = somethingRandom % GAME_WIDTH_GRID
-        //         let xRandom = (somethingRandom - yRandom) / GAME_WIDTH_GRID
-        //         // console.log(somethingRandom)
-        //         console.log("xRandom", xRandom, "yRandom", yRandom)
-        //         myGameMatrix[i][j] = JSON.parse(JSON.stringify(gameMatrix[xRandom][yRandom]))
-        //
-        //         randomArray = this.removeShufflerKeys(randomArray, xRandom)
-        //     }
-        // }
-        //
-        // console.log(myGameMatrix)
+        // let myGameMatrix = [
+        //     ["o","-","-"],
+        //     [[4, 1,0], [5,1,1], [8,2,1]],
+        //     [[12,3,2],[6,1,2] , [16,5,0]],
+        //     [[10,3,0], [13,4,0], [7,2,0]],
+        //     [[11,3,1], [14,4,1], [18,5,2]],
+        //     [[15,4,2], [17,5,1], [9,2,2]]
+        // ]
+
+        let myGameMatrix = JSON.parse(JSON.stringify(gameMatrix));
+        let currentIndex = GAME_WIDTH_GRID + 1;
+
+        let storing = []
+
+        let randomArray = Array.from(Array((GAME_WIDTH_GRID * (GAME_HEIGHT_GRID - 1) + GAME_WIDTH_GRID + 1)).keys())
+        console.log(randomArray)
+        while (storing.length < GAME_WIDTH_GRID*GAME_HEIGHT_GRID - GAME_WIDTH_GRID - 1){
+            let somethingRandom = Math.floor(Math.random() * (GAME_WIDTH_GRID*GAME_HEIGHT_GRID - (GAME_WIDTH_GRID + 1)) + (GAME_WIDTH_GRID + 1))
+            console.log("somethingRandom", somethingRandom)
+            if(storing.indexOf(somethingRandom) === -1) {
+                let yRandom = somethingRandom % GAME_WIDTH_GRID
+                let xRandom = (somethingRandom - yRandom) / GAME_WIDTH_GRID
+                console.log("xRandom", xRandom, "yRandom", yRandom)
+
+                let yIndex = currentIndex % GAME_WIDTH_GRID
+                let xIndex = (currentIndex - yIndex) / GAME_WIDTH_GRID
+                console.log("xIndex", xIndex, "yIndex", yIndex)
+
+                myGameMatrix[xIndex][yIndex] = JSON.parse(JSON.stringify(gameMatrix[xRandom][yRandom]))
+                currentIndex++;
+                storing.push(somethingRandom);
+            }
+        }
+
+        console.log(storing)
 
         return myGameMatrix;
     }

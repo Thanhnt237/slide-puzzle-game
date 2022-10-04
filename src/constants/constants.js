@@ -5,7 +5,7 @@ const GAME_WIDTH = 300;
 const GAME_HEIGHT = 600;
 
 const GAME_WIDTH_GRID = 3;
-const GAME_HEIGHT_GRID = 6;
+const GAME_HEIGHT_GRID = 4;
 
 const GUTTER = 1;
 
