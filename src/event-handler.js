@@ -13,13 +13,13 @@ function EventHandler(game, board) {
     this.messageHandler = (message) => {
         switch (message){
             case GAME_START:
-                this.game.startNewGame()
+                document.getElementById('GameStart').click()
                 break;
             case RESET:
-                this.board.resetGameBoard()
+                document.getElementById('GameReset').click()
                 break;
             case PAUSE:
-                this.game.handleGamePause()
+                document.getElementById('GamePause').click()
                 break;
         }
     }
