@@ -59,10 +59,12 @@ function Main(){
         let buttonGameRestart = document.getElementById('GameRestart')
         let buttonGameReset = document.getElementById('GameReset')
         let buttonGameOver = document.getElementById('GameOver')
+        let buttonCheat = document.getElementById('cheat')
 
         buttonGameRestart.addEventListener('click', () => this.game.startNewGame())
         buttonGameReset.addEventListener('click', () => this.board.resetGameBoard(this.gameMatrix, this.eventHandler))
         buttonGameOver.addEventListener('click', () => this.game.letGameOver())
+        buttonCheat.addEventListener('click', () => this.game.cheatGame())
     }
 }
 

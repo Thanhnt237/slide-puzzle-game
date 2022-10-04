@@ -24,6 +24,11 @@ function GamePlay(gameMatrix, gameBoard, eventHandler) {
         this.eventHandler.emit(GAME_START)
     }
 
+    this.cheatGame = () => {
+        this.currentGameMatrix = JSON.parse(JSON.stringify(this.gameMatrix))
+        this.board.updateGameBoard()
+    }
+
     this.handleGamePause = () => this.gamePause = !this.gamePause
 
     this.getGameMatrix = () => this.gameMatrix
@@ -64,18 +69,23 @@ function GamePlay(gameMatrix, gameBoard, eventHandler) {
         // ]
 
         let myGameMatrix = JSON.parse(JSON.stringify(gameMatrix));
-        let currentIndex = GAME_WIDTH_GRID;
+        let currentIndex = GAME_WIDTH_GRID + 1;
 
         let storing = []
 
-        while (storing.length < GAME_WIDTH_GRID*GAME_HEIGHT_GRID - GAME_WIDTH_GRID){
-            let somethingRandom = Math.floor(Math.random() * (GAME_WIDTH_GRID*GAME_HEIGHT_GRID - GAME_WIDTH_GRID) + GAME_WIDTH_GRID)
+        let randomArray = Array.from(Array((GAME_WIDTH_GRID * (GAME_HEIGHT_GRID - 1) + GAME_WIDTH_GRID + 1)).keys())
+        console.log(randomArray)
+        while (storing.length < GAME_WIDTH_GRID*GAME_HEIGHT_GRID - GAME_WIDTH_GRID - 1){
+            let somethingRandom = Math.floor(Math.random() * (GAME_WIDTH_GRID*GAME_HEIGHT_GRID - (GAME_WIDTH_GRID + 1)) + (GAME_WIDTH_GRID + 1))
+            console.log("somethingRandom", somethingRandom)
             if(storing.indexOf(somethingRandom) === -1) {
                 let yRandom = somethingRandom % GAME_WIDTH_GRID
                 let xRandom = (somethingRandom - yRandom) / GAME_WIDTH_GRID
+                console.log("xRandom", xRandom, "yRandom", yRandom)
 
                 let yIndex = currentIndex % GAME_WIDTH_GRID
                 let xIndex = (currentIndex - yIndex) / GAME_WIDTH_GRID
+                console.log("xIndex", xIndex, "yIndex", yIndex)
 
                 myGameMatrix[xIndex][yIndex] = JSON.parse(JSON.stringify(gameMatrix[xRandom][yRandom]))
                 currentIndex++;
