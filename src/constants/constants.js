@@ -16,3 +16,10 @@ const PUZZLE_WIDTH = GAME_WIDTH / GAME_WIDTH_GRID
 const PUZZLE_HEIGHT = GAME_HEIGHT / GAME_HEIGHT_GRID
 
 const IMAGE_SOURCE = './assets/image.png'
+
+const GAME_START = 'BAT_DAU'
+const GAME_OVER = 'GAME_OVER'
+const WIN = 'WIN'
+
+const RESTART = 'CHOI_LAI'
+const RESET = 'RESET'

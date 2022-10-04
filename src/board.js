@@ -7,6 +7,11 @@ function Board(context, gameMatrix) {
         this.drawGameBoard()
     }
 
+    this.resetGameBoard = (gameMatrix, eventHandler) => {
+        this.drawGameBoard(gameMatrix)
+        eventHandler.emit(RESET)
+    }
+
     this.updateGameBoard = (gameMatrix) => {
         this.drawGameBoard(gameMatrix)
     }

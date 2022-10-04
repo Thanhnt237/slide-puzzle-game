@@ -1,6 +1,7 @@
 function Main(){
     this.context = null;
     this.game = null;
+    this.eventHandler = null;
     this.board = null;
     this.gameMatrix = null;
 
@@ -8,14 +9,15 @@ function Main(){
         this.createCanvas()
         this.createGamePlay()
         this.createGameBoard()
+        this.createEventHandler()
 
         this.startGame()
+        this.testThing()
     }
 
     this.createGamePlay = () => {
         const game = new GamePlay()
         game.init()
-        this.game = game;
         this.gameMatrix = game.getGameMatrix()
     }
 
@@ -34,15 +36,32 @@ function Main(){
         this.board = board;
     }
 
+    this.createEventHandler = () => {
+        let event = new EventHandler()
+        event.init();
+        this.eventHandler = event
+    }
+
     this.startGame = () => {
         let buttonStartGame = document.getElementById('GameStart')
         buttonStartGame.addEventListener('click', this.handleStartGame)
     }
 
     this.handleStartGame = () => {
-        const game = new GamePlay(this.gameMatrix, this.board)
+        const game = new GamePlay(this.gameMatrix, this.board, this.eventHandler)
         alert("Let's Rock!")
+        this.game = game;
         game.startNewGame()
+    }
+
+    this.testThing = () => {
+        let buttonGameRestart = document.getElementById('GameRestart')
+        let buttonGameReset = document.getElementById('GameReset')
+        let buttonGameOver = document.getElementById('GameOver')
+
+        buttonGameRestart.addEventListener('click', () => this.game.startNewGame())
+        buttonGameReset.addEventListener('click', () => this.board.resetGameBoard(this.gameMatrix, this.eventHandler))
+        buttonGameOver.addEventListener('click', () => this.game.letGameOver())
     }
 }
 

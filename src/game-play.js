@@ -1,17 +1,32 @@
-function GamePlay(gameMatrix, gameBoard) {
+function GamePlay(gameMatrix, gameBoard, eventHandler) {
     this.gameMatrix = gameMatrix;
     this.currentGameMatrix = gameMatrix;
     this.board = gameBoard;
     this.gameOver = false;
-    this.gameMatrixLength = 0;
-    this.gameStore = null;
+    this.eventHandler = eventHandler;
     this.gamePause = false;
 
     this.init = () => {
         this.gameMatrix = this.createGameMatrix()
-        console.log(this.gameMatrix)
         // this.gameStore = new Store()
     }
+
+    this.letGameOver = () => {
+        console.log('Game Over!')
+        alert('Game Over!')
+        this.gameOver = true
+        this.eventHandler.emit(WIN)
+    }
+
+    this.letGameStart = () => {
+        console.log("Let's Rocks")
+        this.gameOver = false
+        this.eventHandler.emit(GAME_START)
+    }
+
+    this.letGamePause = () => this.gamePause = true
+
+    this.letGameResumse = () => this.gamePause = false
 
     this.getGameMatrix = () => this.gameMatrix
 
@@ -50,12 +65,12 @@ function GamePlay(gameMatrix, gameBoard) {
             [[15,4,2], [17,5,1], [9,2,2]]
         ]
         // let myGameMatrix = JSON.parse(JSON.stringify(gameMatrix));
-
+        //
         // let randomArray = Array.from(Array((GAME_WIDTH_GRID * (GAME_HEIGHT_GRID - 1) + GAME_WIDTH_GRID + 1)).keys())
         // randomArray = randomArray.slice(GAME_WIDTH_GRID + 1)
         // // console.log(randomArray)
         //
-        // for (let i = 0; i < myGameMatrix.length; i++) {
+        // for (let i = 1; i < myGameMatrix.length; i++) {
         //     for (let j = 0; j < myGameMatrix[i].length; j++) {
         //         let somethingRandom = Math.floor(Math.random() * (randomArray[randomArray.length-1] - randomArray[0] + 1) + randomArray[0])
         //         let yRandom = somethingRandom % GAME_WIDTH_GRID
@@ -83,6 +98,7 @@ function GamePlay(gameMatrix, gameBoard) {
     }
 
     this.startNewGame = () => {
+        this.letGameStart()
         this.createGameHandleEvent()
         this.currentGameMatrix = this.sufferGameMatrix(this.gameMatrix)
         console.log(this.currentGameMatrix)
@@ -92,8 +108,11 @@ function GamePlay(gameMatrix, gameBoard) {
     this.CheckGameOver = () => {
         if(JSON.stringify(this.gameMatrix) === JSON.stringify(this.currentGameMatrix)) {
             console.log("Game Over!")
+            this.letGameOver()
         }
     }
+
+
 
     this.createGameHandleEvent = () => {
         document.onkeydown = (e) => this.handlePressKey(e)
@@ -102,16 +121,16 @@ function GamePlay(gameMatrix, gameBoard) {
     this.handlePressKey = (e) => {
         switch (e.keyCode){
             case 37:
-                this.handleCheckMatrix('left')
-                break;
-            case 38:
-                this.handleCheckMatrix('up')
-                break;
-            case 39:
                 this.handleCheckMatrix('right')
                 break;
-            case 40:
+            case 38:
                 this.handleCheckMatrix('down')
+                break;
+            case 39:
+                this.handleCheckMatrix('left')
+                break;
+            case 40:
+                this.handleCheckMatrix('up')
                 break;
         }
     }
